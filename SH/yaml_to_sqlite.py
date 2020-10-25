@@ -1,4 +1,4 @@
-import psycopg2
+import sqlite3
 import yaml
 
 dates = set()
@@ -8,10 +8,10 @@ cardNums = set()
 flightSet = set()
 cardSet = set()
 
-conn = psycopg2.connect('dbname="spy", user="maria", password="password", host="34.123.231.238", port="5433"')
+conn = sqlite3.connect('SH_Air.sqlite')
 cur = conn.cursor()
 
-cur.execute('''DROP TABLE IF EXISTS SH_Exchange_Flight''')
+cur.execute('''DROP TABLE IF EXISTS Exchange_Flight''')
 cur.execute('''CREATE TABLE Exchange_Flight (
     flightID int PRIMARY KEY,
     flightDate date not null,
@@ -20,7 +20,7 @@ cur.execute('''CREATE TABLE Exchange_Flight (
     to_AP text not null,
     status text not null)''')
 
-cur.execute('''DROP TABLE IF EXISTS SH_Exchange_FlightCard''')
+cur.execute('''DROP TABLE IF EXISTS Exchange_FlightCard''')
 cur.execute('''CREATE TABLE Exchange_FlightCard (
     cardID int PRIMARY KEY,
     cardProgram text not null,
